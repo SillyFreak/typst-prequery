@@ -1,18 +1,9 @@
-#let boolean-input(name) = {
-  let bools = ("true": true, "false": false)
+// #import "../src/lib.typ" as prequery
+#import "@preview/prequery:0.0.1"
 
-  let value = sys.inputs.at(name, default: "false")
-  assert(value in bools, message: "--input " + name + "=... must be set to true or false if present")
-  bools.at(value)
-}
+// toggle this comment or pass `--input prequery-fallback=true` to enable fallback
+// #prequery.fallback.update(true)
 
-#let query-mode = boolean-input("query")
-
-#let remote-image(url, path, ..args) = {
-  [#metadata((url: url, path: path)) <remote-image>]
-  if not query-mode {
-    image(path, ..args)
-  }
-}
-
-#remote-image("https://en.wikipedia.org/static/images/icons/wikipedia.png", "assets/wikipedia.png")
+#prequery.image(
+  "https://en.wikipedia.org/static/images/icons/wikipedia.png",
+  "assets/wikipedia.png")

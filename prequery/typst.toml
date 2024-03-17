@@ -6,7 +6,7 @@ authors = [
   "Clemens Koza <https://github.com/SillyFreak/>"
 ]
 license = "MIT"
-description = "library for building packages that extract metadata for preprocessing from a typst document"
+description = "library for extracting metadata for preprocessing from a typst document"
 repository = "https://github.com/SillyFreak/typst-packages/tree/main/prequery"
 keywords = ["query", "metadata", "preprocessing"]
 # compiler = ""
