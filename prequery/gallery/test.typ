@@ -1,3 +1,6 @@
+// make the PDF reproducible to ease version control
+#set document(date: none)
+
 // #import "../src/lib.typ" as prequery
 #import "@preview/prequery:0.0.1"
 

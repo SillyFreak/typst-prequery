@@ -58,7 +58,7 @@ With that out of the way, here's an example of how to use Prequery:
 #{
   let lines = read("../gallery/test.typ").trim().split("\n")
   // line 1 has a local import for development
-  lines = lines.slice(1)
+  lines = lines.slice(4)
   raw(block: true, lang: "typ", lines.join("\n"))
 }
 
