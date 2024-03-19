@@ -5,8 +5,8 @@
 #import "../src/lib.typ" as prequery
 
 #let package-meta = toml("../typst.toml").package
-#let date = none
-// #let date = datetime(year: ..., month: ..., day: ...)
+// #let date = none
+#let date = datetime(year: 2024, month: 3, day: 19)
 
 #show: project.with(
   title: "Prequery",

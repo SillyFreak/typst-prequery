@@ -1,6 +1,6 @@
 [package]
 name = "prequery"
-version = "0.0.1"
+version = "0.1.0"
 entrypoint = "src/lib.typ"
 authors = [
   "Clemens Koza <https://github.com/SillyFreak/>"
@@ -14,6 +14,6 @@ keywords = ["query", "metadata", "preprocessing"]
 # compiler = ""
 exclude = [
   # docs and gallery are not needed in the final package
-  "docs/*",
-  "gallery/*",
+  "docs",
+  "gallery",
 ]
