@@ -84,7 +84,7 @@ This will output the following piece of JSON:
   "path": "assets/wikipedia.png"}]
 ```
 
-... which can the be fed into a preprocessor. As mentioned, the gallery contains a Python script for processing this query output:
+... which can then be fed into a preprocessor. As mentioned, the gallery contains a Python script for processing this query output:
 
 #{
   let lines = read("../gallery/download-web-resources.py").trim().split("\n")
@@ -98,8 +98,7 @@ Assuming Linux and a working Python installation, the query output can be direct
 
 ```sh
 typst query --input prequery-fallback=true --field value \
-    main.typ '<web-resource>' | \
-  python3 download-web-resources.py
+    main.typ '<web-resource>' | python3 download-web-resources.py
 ```
 
 The first time this runs, the image will be downloaded with the following output:
