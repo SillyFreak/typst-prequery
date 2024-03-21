@@ -72,7 +72,7 @@
 /// typst query --input prequery-fallback=true --field value ... '<web-resource>'
 /// ```
 ///
-/// *Fallback:* renders the Unicde character "Frame with Picture" (U+1F5BC).
+/// *Fallback:* renders the Unicode character "Frame with Picture" (U+1F5BC).
 ///
 /// - url (string): the URL of the image to be shown
 /// - ..args (arguments): arguments to be forwarded to built-in `image`

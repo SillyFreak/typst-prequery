@@ -119,7 +119,7 @@ This package is not just meant for people who want to download images; its real 
   raw(block: true, lang: "typ", lines.join("\n"))
 }
 
-This function shadows a built-in one, which is of course not technically necessary. It does require us to keep an alias to the original function, though. The Parameters to the used #ref-fn("prequery()") function are as follows: the first two parameters specify the metadata made available for querying. The last one is also simple, it just specifies what to display if prequery is in fallback mode: the Unicde character "Frame with Picture".
+This function shadows a built-in one, which is of course not technically necessary. It does require us to keep an alias to the original function, though. The Parameters to the used #ref-fn("prequery()") function are as follows: the first two parameters specify the metadata made available for querying. The last one is also simple, it just specifies what to display if prequery is in fallback mode: the Unicode character "Frame with Picture".
 
 The third parameter, written as ```typc _builtin_image.with(..args)``` is the most involved: first of all, this expression is a function that is only called if not in fallback mode. More importantly, `args` is an `arguments` value, and such a value apparently remembers where it was constructed. Compare these two functions (here, `image()` is just the regular, built-in function):
 
