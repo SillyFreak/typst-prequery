@@ -62,8 +62,8 @@
 #let _builtin_image = image
 
 /// A prequery for images. Apart from the `url` parameter, the image file name is also mandatory; it
-/// is part of `args` for technical reasons. Rendering fails (outside fallback mode) before images
-/// have been downloaded in a preprocessing step.
+/// is part of `args` for technical reasons. Outside fallback mode, rendering this fails when the
+/// referenced image is missing; images need to be downloaded in a preprocessing step.
 ///
 /// This function provides a dictionary with `url` and `path` as metadata under the label
 /// `<web-resource>`. This metadata can be queried like this:
