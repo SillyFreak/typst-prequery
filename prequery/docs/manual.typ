@@ -43,7 +43,12 @@ As I said, there's a reason for Typst's sandboxing. Among those reasons are
 - *Repeatability:* the content hidden behind URLs on the internet can change, so not having access to them ensures that compiling a document now will have the same result as compiling it later. The same goes for any other nondeterministic thing a preprocessor might do.
 - *Security and trust:* when compiling a document, you know what data it can access, so you can fearlessly compile documents you did not write yourself. This is especially important as documents can import third-party packages. You don't need to trust all those packages to be able to trust a document itself.
 
-As this is a Typst package, you don't have to worry about Prequery itself, but the situation is different for the preprocessors mentioned in step 3 above: *you need to trust the preprocessors that you run, because they are not (necessarily) sandboxed*.
+The sandboxing is something that Typst ensures, but the preprocessors mentioned in step 3 above will necessarily _not_ do the same. So using prequery (in the intended way, i.e. utilizing external preprocessing tools)
+
+- *you need to trust the preprocessors that you run, because they are not (necessarily) sandboxed,* and
+- *you need to trust the documents that you compile, including the packages they use, because the documents provide data to the preprocessors, possibly instructing them to do something that you don't want.*
+
+This doesn't mean that using Prequery is necessarily dangerous; it just has more risks than Typst alone.
 
 === Compatibility
 
