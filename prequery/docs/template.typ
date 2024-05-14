@@ -1,7 +1,7 @@
 // adapted from https://github.com/Mc-Zen/tidy/blob/98612b847da41ffb0d1dc26fa250df5c17d50054/docs/template.typ
 // licensed under the MIT license
 
-#import "@preview/codly:0.2.0": *
+#import "@preview/codly:0.2.1": *
 
 // The project function defines how your document looks.
 // It takes your content and some metadata and formats it.
