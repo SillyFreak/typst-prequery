@@ -85,8 +85,8 @@ typst query --input prequery-fallback=true --field value \
 This will output the following piece of JSON:
 
 ```json
-[{"url": "https://en.wikipedia.org/static/images/icons/wikipedia.png",
-  "path": "assets/wikipedia.png"}]
+[{"url": "https://upload.wikimedia.org/wikipedia/commons/a/af/Cc-public_domain_mark.svg",
+  "path": "assets/public_domain.svg"}]
 ```
 
 ... which can then be fed into a preprocessor. As mentioned, the gallery contains a Python script for processing this query output:
@@ -109,7 +109,7 @@ typst query --input prequery-fallback=true --field value \
 The first time this runs, the image will be downloaded with the following output:
 
 ```
-assets/wikipedia.png: downloading https://en.wikipedia.org/static/images/icons/wikipedia.png
+assets/public_domain.svg: downloading https://upload.wikimedia.org/wikipedia/commons/a/af/Cc-public_domain_mark.svg
 ```
 
 Success! After running this, compiling the document will succeed.
