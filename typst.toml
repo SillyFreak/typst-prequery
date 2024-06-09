@@ -14,7 +14,7 @@ repository = "https://github.com/SillyFreak/typst-packages/tree/main/prequery"
 keywords = ["query", "metadata", "preprocessing"]
 categories = ["scripting", "utility"]
 disciplines = []
-# compiler = ""
+compiler = "0.11.0"
 exclude = ["README.md", "CHANGELOG.md", "Justfile", "docs", "gallery"]
 
 # [template]
