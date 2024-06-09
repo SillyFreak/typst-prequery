@@ -1,38 +1,36 @@
-# The `my-package` Package
+# Prequery
 
-A short description about the project and/or client.
-
-## Template adaptation checklist
-
-- [ ] Fill out `README.md`
-  - Change the `my-package` package name, including code snippets
-  - Check section contents and/or delete sections that don't apply
-- [ ] Check and/or replace `LICENSE` by something that suits your needs
-- [ ] Fill out `typst.toml`
-  - See also the [typst/packages README](https://github.com/typst/packages/?tab=readme-ov-file#package-format)
-- [ ] Adapt Repository URLs in `CHANGELOG.md`
-  - Consider only committing that file with your first release, or removing the "Initial Release" part in the beginning
-- [ ] Adapt or deactivate the release workflow in `.github/workflows/release.yml`
-  - to deactivate it, delete that file or remove/comment out lines 2-4 (`on:` and following)
-  - to use the workflow
-    - [ ] check the values under `env:`, particularly `REGISTRY_REPO`
-    - [ ] if you don't have one, [create a fine-grained personal access token](https://github.com/settings/tokens?type=beta) with [only Contents permission](https://stackoverflow.com/a/75116350/371191) for the `REGISTRY_REPO`
-    - [ ] on this repo, create a secret `REGISTRY_TOKEN` (at `https://github.com/[user]/[repo]/settings/secrets/actions`) that contains the so created token
-
-    if configured correctly, whenever you create a tag `v...`, your package will be pushed onto a branch on the `REGISTRY_REPO`, from which you can then create a pull request against [typst/packages](https://github.com/typst/packages/)
-- [ ] remove/replace the example test case
-- [ ] (add your actual code, docs and tests)
-- [ ] remove this section from the README
+This package helps extracting metadata for preprocessing from a typst document, for example image URLs for download from the web. Typst compilations are sandboxed: it is not possible for Typst packages, or even just a Typst document itself, to access the "ouside world". This sandboxing of Typst has good reasons. Yet, it is often convenient to trade a bit of security for convenience by weakening it. Prequery helps with that by providing some simple scaffolding for supporting preprocessing of documents.
 
 ## Getting Started
 
-To add this package to your project, use this:
+Here's an example for referencing images from the internet:
 
 ```typ
-#import "@preview/typst-package-template:0.1.0": *
+#import "@preview/prequery:0.1.0"
 
-#id[Hello World]
+// toggle this comment or pass `--input prequery-fallback=true` to enable fallback
+// #prequery.fallback.update(true)
+
+#prequery.image(
+  "https://en.wikipedia.org/static/images/icons/wikipedia.png",
+  "assets/wikipedia.png")
 ```
+
+Using `typst query`, the image URL(s) are extracted from the document:
+
+```sh
+typst query --input prequery-fallback=true --field value \
+    main.typ '<web-resource>'
+```
+
+This will output the following piece of JSON:
+
+```json
+[{"url": "https://en.wikipedia.org/static/images/icons/wikipedia.png", "path": "assets/wikipedia.png"}]
+```
+
+Which can then be used to download all images to the expected locations.
 
 ## Usage
 
