@@ -135,6 +135,8 @@ The third parameter, written as ```typc _builtin_image.with(..args)``` is the mo
 #let my-image2(..args) = image(..args)
 ```
 
+#pagebreak(weak: true)
+
 While they seem to be equivalent (the `path` parameter of `image()` is mandatory anyway), they behave differently:
 
 ```typ
