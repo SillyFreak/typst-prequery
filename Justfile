@@ -10,6 +10,14 @@ default:
 doc:
 	typst compile docs/manual.typ docs/manual.pdf
 
+	typst c --input prequery-fallback=true gallery/test.typ gallery/test-fallback.pdf
+
+	cd gallery; \
+		typst query --root .. --input prequery-fallback=true --field value test.typ '<web-resource>' \
+			| python3 download-web-resources.py; \
+		typst c --root .. test.typ test.pdf; \
+		rm -r assets/
+
 # run test suite
 test *args:
 	typst-test run {{ args }}
