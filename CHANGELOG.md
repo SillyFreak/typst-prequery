@@ -1,4 +1,4 @@
-# [unreleased](https://github.com/SillyFreak/typst-prequery/releases/tags/)
+# [unreleased](https://github.com/SillyFreak/typst-prequery/releases/tag/)
 ## Added
 
 ## Removed
@@ -9,5 +9,5 @@
 
 ---
 
-# [v0.1.0](https://github.com/SillyFreak/typst-prequery/releases/tags/v0.1.0)
+# [v0.1.0](https://github.com/SillyFreak/typst-prequery/releases/tag/v0.1.0)
 Initial Release
