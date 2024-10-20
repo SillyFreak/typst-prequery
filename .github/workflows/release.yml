@@ -46,6 +46,9 @@ jobs:
             exit 1
           fi
 
+      - name: Install package locally
+        run: just install-preview
+
       - name: Build package
         run: |
           just doc

@@ -1,15 +1,10 @@
-#import "@preview/tidy:0.3.0"
-#import "@preview/crudo:0.1.0"
-
-#import "template.typ": *
-
+#import "template.typ" as template: *
 #import "/src/lib.typ" as prequery
 
 #let package-meta = toml("/typst.toml").package
-// #let date = none
 #let date = datetime(year: 2024, month: 3, day: 19)
 
-#show: project.with(
+#show: manual(
   title: "Prequery",
   // subtitle: "...",
   authors: package-meta.authors.map(a => a.split("<").at(0).trim()),
@@ -152,17 +147,9 @@ This is of course very useful for prequeries, which are all about specifying the
 
 = Module reference
 
-== `template`
-
-#{
-  let module = tidy.parse-module(
-    read("/src/lib.typ"),
-    // label-prefix: "prequery.",
-    scope: scope,
-  )
-  tidy.show-module(
-    module,
-    sort-functions: none,
-    style: tidy.styles.minimal,
-  )
-}
+#module(
+  read("/src/lib.typ"),
+  name: "prequery",
+  label-prefix: none,
+  scope: scope,
+)

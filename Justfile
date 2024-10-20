@@ -9,6 +9,10 @@ default:
 # generate manual
 doc:
 	typst compile docs/manual.typ docs/manual.pdf
+	# for f in $(find gallery -maxdepth 1 -name '*.typ'); do \
+	# 	typst compile "$f"; \
+	# done
+	# typst compile --ppi 250 "gallery/thumbnail.typ" "thumbnail.png"
 
 	typst c --input prequery-fallback=true gallery/test.typ gallery/test-fallback.pdf
 
