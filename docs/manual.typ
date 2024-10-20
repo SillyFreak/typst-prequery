@@ -58,7 +58,7 @@ With that out of the way, here's an example of how to use Prequery:
 
 #{
   let example = raw(block: true, lang: "typ", read("/gallery/test.typ").trim())
-  example = crudo.slice(example, 4)
+  example = crudo.lines(example, "5-")
   example
 }
 
@@ -73,8 +73,8 @@ We call a function of this sort "a prequery", and the image prequery is just a v
 As mentioned, this file will fail to compile unless activating fallback mode as described in the commented out part of the example. The next step is thus to actually get the referenced files, using query:
 
 ```sh
-typst query --input prequery-fallback=true --field value \
-    main.typ '<web-resource>'
+typst query main.typ '<web-resource>' --field value \
+    --input prequery-fallback=true
 ```
 
 This will output the following piece of JSON:
@@ -88,7 +88,7 @@ This will output the following piece of JSON:
 
 #{
   let example = raw(block: true, lang: "py", read("/gallery/download-web-resources.py").trim())
-  example = crudo.filter(example, l => l != "" and not l.starts-with(regex("\s*#")))
+  // example = crudo.filter(example, l => l != "" and not l.starts-with(regex("\s*#")))
   example
 }
 
@@ -97,8 +97,8 @@ I repeat: I *don't* consider this script production ready! I have made the minim
 Assuming Linux and a working Python installation, the query output can be directly fed into this script:
 
 ```sh
-typst query --input prequery-fallback=true --field value \
-    main.typ '<web-resource>' | python3 download-web-resources.py
+typst query main.typ '<web-resource>' --field value \
+    --input prequery-fallback=true | python3 download-web-resources.py
 ```
 
 The first time this runs, the image will be downloaded with the following output:
@@ -115,7 +115,7 @@ This package is not just meant for people who want to download images; its real 
 
 #{
   let example = raw(block: true, lang: "typ", read("/src/lib.typ").trim())
-  example = crudo.slice(example, 61)
+  example = crudo.lines(example, "62-")
   example = crudo.filter(example, l => not l.starts-with(regex("\s*//")))
   example
 }

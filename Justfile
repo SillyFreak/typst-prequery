@@ -16,11 +16,10 @@ doc:
 
 	typst c --input prequery-fallback=true gallery/test.typ gallery/test-fallback.pdf
 
-	cd gallery; \
-		typst query --root .. --input prequery-fallback=true --field value test.typ '<web-resource>' \
-			| python3 download-web-resources.py; \
-		typst c --root .. test.typ test.pdf; \
-		rm -r assets/
+	typst query gallery/test.typ '<web-resource>' --field value --input prequery-fallback=true \
+		| python3 gallery/download-web-resources.py gallery/
+	typst c gallery/test.typ
+	rm -r gallery/assets/
 
 # run test suite
 test *args:
