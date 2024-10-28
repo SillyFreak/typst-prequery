@@ -37,7 +37,7 @@
 /// - fallback (content): the fallback content to display when in fallback mode
 /// -> content
 #let prequery(meta, lbl, body, fallback: none) = {
-  [#metadata(meta) #lbl]
+  [#metadata(meta)#lbl]
   context {
     if not _fallback.get() {
       if type(body) != function {
