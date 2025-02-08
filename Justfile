@@ -4,30 +4,31 @@ export TYPST_ROOT := root
 
 [private]
 default:
-	@just --list --unsorted
+  @just --list --unsorted
 
 # generate manual
 doc:
-	typst compile docs/manual.typ docs/manual.pdf
-	# for f in $(find gallery -maxdepth 1 -name '*.typ'); do \
-	# 	typst compile "$f"; \
-	# done
-	# typst compile --ppi 250 "gallery/thumbnail.typ" "thumbnail.png"
+  typst compile docs/manual.typ docs/manual.pdf
+  # typst compile docs/thumbnail.typ thumbnail-light.svg
+  # typst compile --input theme=dark docs/thumbnail.typ thumbnail-dark.svg
+  # for f in $(find gallery -maxdepth 1 -name '*.typ'); do \
+  #   typst compile "$f"; \
+  # done
 
-	typst c --input prequery-fallback=true gallery/test.typ gallery/test-fallback.pdf
+  typst c --input prequery-fallback=true gallery/test.typ gallery/test-fallback.pdf
 
-	typst query gallery/test.typ '<web-resource>' --field value --input prequery-fallback=true \
-		| python3 gallery/download-web-resources.py gallery/
-	typst c gallery/test.typ
-	rm -r gallery/assets/
+  typst query gallery/test.typ '<web-resource>' --field value --input prequery-fallback=true \
+    | python3 gallery/download-web-resources.py gallery/
+  typst c gallery/test.typ
+  rm -r gallery/assets/
 
 # run test suite
 test *args:
-	typst-test run {{ args }}
+  tt run {{ args }}
 
 # update test cases
 update *args:
-	typst-test update {{ args }}
+  tt update {{ args }}
 
 # package the library into the specified destination folder
 package target:

@@ -30,13 +30,22 @@
 /// The body may be given as a function, so that errors from the body don't let compilation fail
 /// when in fallback mode.
 ///
-/// - meta (any): the metadata value to provide for preprocessing
-/// - lbl (label): the label to give the created metadata
-/// - body (content, function): the body to display; if a function is given, that function will not
-///   be called in fallback mode
-/// - fallback (content): the fallback content to display when in fallback mode
 /// -> content
-#let prequery(meta, lbl, body, fallback: none) = {
+#let prequery(
+  /// the metadata value to provide for preprocessing
+  /// -> any
+  meta,
+  /// the label to give the created metadata
+  /// -> label
+  lbl,
+  /// function): the body to display; if a function is given, that function will not be called in
+  /// fallback mode
+  /// -> content
+  body,
+  /// the fallback content to display when in fallback mode
+  /// -> content
+  fallback: none,
+) = {
   [#metadata(meta)#lbl]
   context {
     if not _fallback.get() {
@@ -74,10 +83,15 @@
 ///
 /// *Fallback:* renders the Unicode character "Frame with Picture" (U+1F5BC).
 ///
-/// - url (string): the URL of the image to be shown
-/// - ..args (arguments): arguments to be forwarded to built-in `image`
 /// -> content
-#let image(url, ..args) = prequery(
+#let image(
+  /// the URL of the image to be shown
+  /// -> string
+  url,
+  /// arguments to be forwarded to built-in `image`
+  /// -> arguments
+  ..args,
+) = prequery(
   (url: url, path: args.pos().at(0)),
   <web-resource>,
   // this is a bit "magic": Typst doesn't have path hygiene yet

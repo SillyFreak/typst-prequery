@@ -1,6 +1,8 @@
 #import "template.typ" as template: *
 #import "/src/lib.typ" as prequery
 
+#import "@preview/crudo:0.1.1"
+
 #let package-meta = toml("/typst.toml").package
 #let date = datetime(year: 2024, month: 3, day: 19)
 
@@ -80,8 +82,7 @@ typst query main.typ '<web-resource>' --field value \
 This will output the following piece of JSON:
 
 ```json
-[{"url": "https://upload.wikimedia.org/wikipedia/commons/a/af/Cc-public_domain_mark.svg",
-  "path": "assets/public_domain.svg"}]
+[{"url": "https://upload.wikimedia.org/wikipedia/commons/a/af/Cc-public_domain_mark.svg", "path": "assets/public_domain.svg"}]
 ```
 
 ... which can then be fed into a preprocessor. As mentioned, the gallery contains a Python script for processing this query output:
@@ -115,12 +116,11 @@ This package is not just meant for people who want to download images; its real 
 
 #{
   let example = raw(block: true, lang: "typ", read("/src/lib.typ").trim())
-  example = crudo.lines(example, "62-")
-  example = crudo.filter(example, l => not l.starts-with(regex("\s*//")))
+  codly.codly(ranges: ((71, 72), (87, 87), (90, 90), (93, 96), (101, none)))
   example
 }
 
-This function shadows a built-in one, which is of course not technically necessary. It does require us to keep an alias to the original function, though. The Parameters to the used #ref-fn("prequery()") function are as follows: the first two parameters specify the metadata made available for querying. The last one is also simple, it just specifies what to display if prequery is in fallback mode: the Unicode character "Frame with Picture".
+This function shadows a built-in one, which is of course not technically necessary. It does require us to keep an alias to the original function, though. The Parameters to the used #ref-fn("prequery()") function are as follows: the first two parameters specify the metadata made available for querying. The last one is also simple, it just specifies what to display if prequery is in fallback mode: the Unicode character "Frame with Picture" \u{1F5BC}.
 
 The third parameter, written as ```typc _builtin_image.with(..args)``` is the most involved: first of all, this expression is a function that is only called if not in fallback mode. More importantly, `args` is an `arguments` value, and such a value apparently remembers where it was constructed. Compare these two functions (here, `image()` is just the regular, built-in function):
 
@@ -129,8 +129,6 @@ The third parameter, written as ```typc _builtin_image.with(..args)``` is the mo
 #let my-image(path, ..args) = image(path, ..args)
 #let my-image2(..args) = image(..args)
 ```
-
-#pagebreak(weak: true)
 
 While they seem to be equivalent (the `path` parameter of `image()` is mandatory anyway), they behave differently:
 
@@ -144,6 +142,8 @@ While they seem to be equivalent (the `path` parameter of `image()` is mandatory
 With `my-image`, passing `path` to `image()` resolves the path relative to the file `xy/lib.typ`, resulting in `"xy/assets/foo.png"`. With `my-image2` on the other hand, the path seems to be relative to where the `arguments` containing it were constructed, and that happens in `main.typ`, at the call site. The path is thus resolved as `"assets/foo.png"`.
 
 This is of course very useful for prequeries, which are all about specifying the files into which external data should be saved, and then successfully reading from these files! As long as the file name remains in an `arguments` value, it can be passed on and still treated as relative to the caller of the package.
+
+#pagebreak(weak: true)
 
 = Module reference
 
