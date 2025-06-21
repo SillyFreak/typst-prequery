@@ -3,23 +3,19 @@
 
 #import "@preview/crudo:0.1.1"
 
-#let package-meta = toml("/typst.toml").package
-#let date = datetime(year: 2024, month: 3, day: 19)
-
 #show: manual(
+  package-meta: toml("/typst.toml").package,
   title: "Prequery",
-  // subtitle: "...",
-  authors: package-meta.authors.map(a => a.split("<").at(0).trim()),
-  abstract: [
-    Extracting metadata for preprocessing from a typst document, for example image URLs for download from the web.
-  ],
-  url: package-meta.repository,
-  version: package-meta.version,
-  date: date,
-)
+  subtitle: "Extracting metadata for preprocessing from a typst document, for example image URLs for download from the web.",
+  date: datetime(year: 2024, month: 3, day: 19),
 
-// the scope for evaluating expressions and documentation
-#let scope = (prequery: prequery)
+  // logo: rect(width: 5cm, height: 5cm),
+  // abstract: [
+  //   A PACKAGE for something
+  // ],
+
+  scope: (prequery: prequery),
+)
 
 = Introduction
 
@@ -151,5 +147,4 @@ This is of course very useful for prequeries, which are all about specifying the
   read("/src/lib.typ"),
   name: "prequery",
   label-prefix: none,
-  scope: scope,
 )
