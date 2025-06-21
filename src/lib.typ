@@ -45,9 +45,13 @@
   /// the fallback content to display when in fallback mode
   /// -> content
   fallback: none,
+  /// whether to provide context (the return value is opaque), or require externally provided
+  /// context (the return value can be inspected, but calls must be inside `context`)
+  /// -> bool
+  provide-context: true,
 ) = {
   [#metadata(meta)#lbl]
-  context {
+  let impl() = {
     if not _fallback.get() {
       if type(body) != function {
         body
@@ -65,6 +69,11 @@
         fallback
       }
     }
+  }
+  if provide-context {
+    context impl()
+  } else {
+    impl()
   }
 }
 
@@ -86,6 +95,10 @@
   /// the URL of the image to be shown
   /// -> string
   url,
+  /// whether to provide context (the return value is opaque), or require externally provided
+  /// context (the return value can be inspected, but calls must be inside `context`)
+  /// -> bool
+  provide-context: true,
   /// arguments to be forwarded to built-in `image`
   /// -> arguments
   ..args,
@@ -98,4 +111,5 @@
   // _relative to where this function was called_, which is the path we actually want!
   std.image.with(..args),
   fallback: [\u{1F5BC}],
+  provide-context: provide-context,
 )
