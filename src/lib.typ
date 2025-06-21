@@ -68,8 +68,6 @@
   }
 }
 
-#let _builtin_image = image
-
 /// A prequery for images. Apart from the `url` parameter, the image file name is also mandatory; it
 /// is part of `args` for technical reasons. Outside fallback mode, rendering this fails when the
 /// referenced image is missing; images need to be downloaded in a preprocessing step.
@@ -98,6 +96,6 @@
   // (https://github.com/typst/typst/issues/971) - HOWEVER, it seems that the `arguments` type
   // remebers where it comes from. So the first positional parameter in `args` is the path
   // _relative to where this function was called_, which is the path we actually want!
-  _builtin_image.with(..args),
+  std.image.with(..args),
   fallback: [\u{1F5BC}],
 )

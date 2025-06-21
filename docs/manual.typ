@@ -10,16 +10,16 @@
   date: datetime(year: 2024, month: 3, day: 19),
 
   // logo: rect(width: 5cm, height: 5cm),
-  // abstract: [
-  //   A PACKAGE for something
-  // ],
+  abstract: [
+    Typst compilations are sandboxed: it is not possible for Typst packages or documents to access the "outside world". This sandboxing has good reasons, but as a consequence certain tasks require more manual work than one may like. For example, if you want to embed an image from the internet in your document, you need to download the image using its URL, save the image in your Typst project, and then show that file using the `image()` function. Prequery offers a limited interface that makes it easier to automate tasks of this kind.
+  ],
 
   scope: (prequery: prequery),
 )
 
 = Introduction
 
-Typst compilations are sandboxed: it is not possible for Typst packages, or even just a Typst document itself, to access the "ouside world". The only inputs that a Typst document can read are files within the compilation root, and strings given on the command line via `--input`. For example, if you want to embed an image from the internet in your document, you need to download the image using its URL, save the image in your Typst project, and then show that file using the `image()` function. Within your document, the image is not linked to its URL; that step was something _you_ had to do, and have to do for every image you want to use from the internet.
+Typst compilations are sandboxed: it is not possible for Typst packages, or even just a Typst document itself, to access the "outside world". The only inputs that a Typst document can read are files within the compilation root, and strings given on the command line via `--input`. For example, if you want to embed an image from the internet in your document, you need to download the image using its URL, save the image in your Typst project, and then show that file using the `image()` function. Within your document, the image is not linked to its URL; that step was something _you_ had to do, and have to do for every image you want to use from the internet.
 
 This sandboxing of Typst has good reasons. Yet, it is often convenient to trade a bit of security for convenience by weakening it. Prequery helps with that by providing some simple scaffolding for supporting preprocessing of documents. The process is roughly like that:
 
@@ -32,12 +32,12 @@ This sandboxing of Typst has good reasons. Yet, it is often convenient to trade 
 
 === Breaking the sandbox
 
-As I said, there's a reason for Typst's sandboxing. Among those reasons are
+As mentioned, there's a reason for Typst's sandboxing. Among those reasons are
 
 - *Repeatability:* the content hidden behind URLs on the internet can change, so not having access to them ensures that compiling a document now will have the same result as compiling it later. The same goes for any other nondeterministic thing a preprocessor might do.
 - *Security and trust:* when compiling a document, you know what data it can access, so you can fearlessly compile documents you did not write yourself. This is especially important as documents can import third-party packages. You don't need to trust all those packages to be able to trust a document itself.
 
-The sandboxing is something that Typst ensures, but the preprocessors mentioned in step 3 above will necessarily _not_ do the same. So using prequery (in the intended way, i.e. utilizing external preprocessing tools)
+The sandboxing is something that Typst ensures, but the preprocessors mentioned in step 3 above will necessarily _not_ do the same. So using prequery (in the intended way, i.e. utilizing external preprocessing tools) means
 
 - *you need to trust the preprocessors that you run, because they are not (necessarily) sandboxed,* and
 - *you need to trust the documents that you compile, including the packages they use, because the documents provide data to the preprocessors, possibly instructing them to do something that you don't want.*
@@ -68,7 +68,7 @@ Instead of the built-in `image()`, we're using this package's #ref-fn("image()")
 
 We call a function of this sort "a prequery", and the image prequery is just a very common example. Other prequeries could, for example, instruct a preprocessor to capture the result of software that can't be run as a #link("https://typst.app/docs/reference/foundations/plugin/")[plugin].
 
-As mentioned, this file will fail to compile unless activating fallback mode as described in the commented out part of the example. The next step is thus to actually get the referenced files, using query:
+As mentioned, this file will fail to compile unless activating fallback mode as described in the commented out part of the example. The next step is thus to actually get the referenced files, using `query`:
 
 ```sh
 typst query main.typ '<web-resource>' --field value \
@@ -112,11 +112,11 @@ This package is not just meant for people who want to download images; its real 
 
 #{
   let example = raw(block: true, lang: "typ", read("/src/lib.typ").trim())
-  codly.codly(ranges: ((71, 72), (87, 87), (90, 90), (93, 96), (101, none)))
+  codly.codly(ranges: ((85, 85), (88, 88), (91, 94), (99, none)))
   example
 }
 
-This function shadows a built-in one, which is of course not technically necessary. It does require us to keep an alias to the original function, though. The Parameters to the used #ref-fn("prequery()") function are as follows: the first two parameters specify the metadata made available for querying. The last one is also simple, it just specifies what to display if prequery is in fallback mode: the Unicode character "Frame with Picture" \u{1F5BC}.
+This function shadows a built-in one, which is of course not technically necessary. It does require us to call the original function by prefixing the `std` module, though. The Parameters to the used #ref-fn("prequery()") function are as follows: the first two parameters specify the metadata made available for querying. The last one is also simple, it just specifies what to display if prequery is in fallback mode: the Unicode character "Frame with Picture" #box(height: 0.65em, move(dy: -0.3em)[\u{1F5BC}]).
 
 The third parameter, written as ```typc _builtin_image.with(..args)``` is the most involved: first of all, this expression is a function that is only called if not in fallback mode. More importantly, `args` is an `arguments` value, and such a value apparently remembers where it was constructed. Compare these two functions (here, `image()` is just the regular, built-in function):
 
