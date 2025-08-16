@@ -1,5 +1,5 @@
 #import "/src/lib.typ" as prequery
 
 #prequery.image(
-  "https://upload.wikimedia.org/wikipedia/commons/a/af/Cc-public_domain_mark.svg",
-  "assets/public_domain.svg")
+  "https://raw.githubusercontent.com/SillyFreak/typst-prequery/refs/heads/main/test-assets/example-image.svg",
+  "assets/example-image.svg")

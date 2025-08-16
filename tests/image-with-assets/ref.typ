@@ -1,1 +1,1 @@
-#image("assets/public_domain.svg")
+#image("assets/example-image.svg")
