@@ -6,6 +6,9 @@ export TYPST_ROOT := root
 default:
   @just --list --unsorted
 
+test-assets:
+    cd test-assets && just
+
 # generate manual
 doc:
   typst compile docs/manual.typ docs/manual.pdf

@@ -1,0 +1,3 @@
+all:
+	typst compile example-image.typ --format png
+	typst compile example-image.typ --format svg
